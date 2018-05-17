@@ -13,7 +13,7 @@ public protocol RouteSegment {
 }
 
 extension RouteSegment where Self: Equatable {
-  func isEqual(to segment: RouteSegment?) -> Bool {
+  public func isEqual(to segment: RouteSegment?) -> Bool {
     guard let segment = segment as? Self else {
       return false
     }
@@ -21,8 +21,12 @@ extension RouteSegment where Self: Equatable {
   }
 }
 
-struct IDRouteSegment<T: Equatable>: RouteSegment, Equatable {
-  let id: T
+public struct IDRouteSegment<T: Equatable>: RouteSegment, Equatable {
+  let identifier: T
+  
+  public init(_ identifier: T) {
+      self.identifier = identifier
+  }
 }
 
 public typealias Route = [RouteSegment]

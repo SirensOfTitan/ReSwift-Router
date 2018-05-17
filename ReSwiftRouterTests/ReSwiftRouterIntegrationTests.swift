@@ -112,7 +112,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                 it("requests the root with identifier when an initial route is provided") {
                     store.dispatch(
                         SetRouteAction(
-                            [IDRouteSegment(id: "TabBarViewController")]
+                            [IDRouteSegment("TabBarViewController")]
                         )
                     )
 
@@ -134,7 +134,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                     waitUntil(timeout: 2.0) { fullfill in
                         let rootRoutable = FakeRootRoutable { identifier in
-                            if IDRouteSegment(id: "TabBarViewController").isEqual(to: identifier) {
+                            if IDRouteSegment("TabBarViewController").isEqual(to: identifier) {
                                 fullfill()
                             }
                         }
@@ -144,6 +144,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                         }
                     }
                 }
+
 
                 it("calls push on the root for a route with two elements") {
                     store.dispatch(
@@ -169,7 +170,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                     waitUntil(timeout: 5.0) { completion in
                         let fakeChildRoutable = FakeChildRoutable() { identifier in
-                            if IDRouteSegment(id: "SecondViewController").isEqual(to: identifier) {
+                            if IDRouteSegment("SecondViewController").isEqual(to: identifier) {
                                 completion()
                             }
                         }
@@ -219,7 +220,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
             context("when dispatching an animated route change") {
                 beforeEach {
-                    store.dispatch(SetRouteAction([IDRouteSegment(id: "someRoute")], animated: true))
+                    store.dispatch(SetRouteAction([IDRouteSegment("someRoute")], animated: true))
                 }
 
                 it("calls routables asking for an animated presentation") {
@@ -229,7 +230,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
             context("when dispatching an unanimated route change") {
                 beforeEach {
-                    store.dispatch(SetRouteAction([IDRouteSegment(id: "someRoute")], animated: false))
+                    store.dispatch(SetRouteAction([IDRouteSegment("someRoute")], animated: false))
                 }
 
                 it("calls routables asking for an animated presentation") {
@@ -239,7 +240,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
             context("when dispatching a default route change") {
                 beforeEach {
-                    store.dispatch(SetRouteAction([IDRouteSegment(id: "someRoute")]))
+                    store.dispatch(SetRouteAction([IDRouteSegment("someRoute")]))
                 }
 
                 it("calls routables asking for an animated presentation") {

@@ -8,10 +8,6 @@
 
 import ReSwift
 
-/// Exports the type map needed for using ReSwiftRouter with a Recording Store
-public let typeMap: [String: StandardActionConvertible.Type] =
-    ["RE_SWIFT_ROUTER_SET_ROUTE": SetRouteAction.self]
-
 public struct SetRouteAction: StandardActionConvertible {
 
     let route: Route
@@ -38,4 +34,21 @@ public struct SetRouteAction: StandardActionConvertible {
     
 }
 
+public struct PushRouteAction: Action {
+  let segment: RouteSegment
+  let animated: Bool
+  
+  public init(_ segment: RouteSegment, animated: Bool = true) {
+    self.segment = segment
+    self.animated = animated
+  }
+}
+
+public struct PopRouteAction: Action {
+  let animated: Bool
+  
+  public init(animated: Bool = true) {
+    self.animated = animated
+  }
+}
 

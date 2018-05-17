@@ -22,6 +22,10 @@ public struct NavigationReducer {
         switch action {
         case let action as SetRouteAction:
             return setRoute(state, setRouteAction: action)
+        case let action as PushRouteAction:
+            return pushRoute(state, pushRouteAction: action)
+        case let action as PopRouteAction:
+            return popRoute(state, popRouteAction: action)
         default:
             break
         }
@@ -35,6 +39,24 @@ public struct NavigationReducer {
         state.route = setRouteAction.route
         state.changeRouteAnimated = setRouteAction.animated
 
+        return state
+    }
+  
+    static func pushRoute(_ state: NavigationState, pushRouteAction: PushRouteAction) -> NavigationState {
+        var state = state
+      
+        state.route.append(pushRouteAction.segment)
+        state.changeRouteAnimated = pushRouteAction.animated
+      
+        return state
+    }
+  
+    static func popRoute(_ state: NavigationState, popRouteAction: PopRouteAction) -> NavigationState {
+        var state = state
+      
+        _ = state.route.popLast()
+        state.changeRouteAnimated = popRouteAction.animated
+      
         return state
     }
 

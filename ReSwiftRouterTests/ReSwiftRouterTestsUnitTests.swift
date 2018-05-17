@@ -20,10 +20,10 @@ class ReSwiftRouterUnitTests: QuickSpec {
     override func spec() {
         describe("routing calls") {
           
-            let tabBarViewControllerIdentifier = IDRouteSegment(id: "TabBarViewController")
-            let counterViewControllerIdentifier = IDRouteSegment(id: "CounterViewController")
-            let statsViewControllerIdentifier = IDRouteSegment(id: "StatsViewController")
-            let infoViewControllerIdentifier = IDRouteSegment(id: "InfoViewController")
+            let tabBarViewControllerIdentifier = IDRouteSegment("TabBarViewController")
+            let counterViewControllerIdentifier = IDRouteSegment("CounterViewController")
+            let statsViewControllerIdentifier = IDRouteSegment("StatsViewController")
+            let infoViewControllerIdentifier = IDRouteSegment("InfoViewController")
 
             it("calculates transitions from an empty route to a multi segment route") {
                 let oldRoute: Route = []
