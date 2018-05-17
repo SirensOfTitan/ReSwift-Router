@@ -22,8 +22,6 @@ public struct NavigationReducer {
         switch action {
         case let action as SetRouteAction:
             return setRoute(state, setRouteAction: action)
-        case let action as SetRouteSpecificData:
-            return setRouteSpecificData(state, route: action.route, data: action.data)
         default:
             break
         }
@@ -38,19 +36,6 @@ public struct NavigationReducer {
         state.changeRouteAnimated = setRouteAction.animated
 
         return state
-    }
-
-    static func setRouteSpecificData(
-        _ state: NavigationState,
-        route: Route,
-        data: Any) -> NavigationState{
-            let routeHash = RouteHash(route: route)
-
-            var state = state
-
-            state.routeSpecificState[routeHash] = data
-
-            return state
     }
 
 }

@@ -35,14 +35,6 @@ public struct NavigationState {
     var changeRouteAnimated: Bool = true
 }
 
-extension NavigationState {
-    public func getRouteSpecificState<T>(_ route: Route) -> T? {
-        let hash = RouteHash(route: route)
-
-        return self.routeSpecificState[hash] as? T
-    }
-}
-
 public protocol HasNavigationState {
     var navigationState: NavigationState { get set }
 }
