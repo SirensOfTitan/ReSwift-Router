@@ -103,7 +103,7 @@ open class Router<State: StateType>: StoreSubscriber {
 
             while largestCommonSubroute + 1 < newRoute.count &&
                   largestCommonSubroute + 1 < oldRoute.count &&
-                  newRoute[largestCommonSubroute + 1] == oldRoute[largestCommonSubroute + 1] {
+                  newRoute[largestCommonSubroute + 1].isEqual(to: oldRoute[largestCommonSubroute + 1]) {
                     largestCommonSubroute += 1
             }
 
@@ -205,8 +205,8 @@ open class Router<State: StateType>: StoreSubscriber {
 func ReSwiftRouterStuck() {}
 
 enum RoutingActions {
-    case push(responsibleRoutableIndex: Int, segmentToBePushed: RouteElementIdentifier)
-    case pop(responsibleRoutableIndex: Int, segmentToBePopped: RouteElementIdentifier)
-    case change(responsibleRoutableIndex: Int, segmentToBeReplaced: RouteElementIdentifier,
-                    newSegment: RouteElementIdentifier)
+    case push(responsibleRoutableIndex: Int, segmentToBePushed: RouteSegment)
+    case pop(responsibleRoutableIndex: Int, segmentToBePopped: RouteSegment)
+    case change(responsibleRoutableIndex: Int, segmentToBeReplaced: RouteSegment,
+                    newSegment: RouteSegment)
 }

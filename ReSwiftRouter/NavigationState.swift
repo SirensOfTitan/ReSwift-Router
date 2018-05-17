@@ -8,30 +8,29 @@
 
 import ReSwift
 
-public typealias RouteElementIdentifier = String
-public typealias Route = [RouteElementIdentifier]
+public protocol RouteSegment {
+  func isEqual(to segment: RouteSegment?) -> Bool
+}
 
-/// A `Hashable` and `Equatable` presentation of a route.
-/// Can be used to check two routes for equality.
-public struct RouteHash: Hashable {
-    let routeHash: String
-
-    public init(route: Route) {
-        self.routeHash = route.joined(separator: "/")
+extension RouteSegment where Self: Equatable {
+  func isEqual(to segment: RouteSegment?) -> Bool {
+    guard let segment = segment as? Self else {
+      return false
     }
-
-    public var hashValue: Int { return self.routeHash.hashValue }
+    return self == segment
+  }
 }
 
-public func == (lhs: RouteHash, rhs: RouteHash) -> Bool {
-    return lhs.routeHash == rhs.routeHash
+struct IDRouteSegment<T: Equatable>: RouteSegment, Equatable {
+  let id: T
 }
+
+public typealias Route = [RouteSegment]
 
 public struct NavigationState {
     public init() {}
 
     public var route: Route = []
-    public var routeSpecificState: [RouteHash: Any] = [:]
     var changeRouteAnimated: Bool = true
 }
 
