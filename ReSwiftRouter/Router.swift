@@ -52,7 +52,8 @@ open class Router<State: StateType>: StoreSubscriber {
 
         case let .change(responsibleRoutableIndex, segmentToBeReplaced, newSegment):
           DispatchQueue.main.async {
-            guard let routableUpdater = self.routables[responsibleRoutableIndex + 1] as? RoutableUpdateHandler else {
+            guard let routableUpdater = self.routables[responsibleRoutableIndex + 1] as? RoutableUpdateHandler,
+              type(of: segmentToBeReplaced) == type(of: newSegment) else {
               self.routables[responsibleRoutableIndex + 1] =
                 self.routables[responsibleRoutableIndex]
                 .changeRouteSegment(
