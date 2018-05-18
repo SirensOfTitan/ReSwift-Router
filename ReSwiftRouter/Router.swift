@@ -54,13 +54,20 @@ open class Router<State: StateType>: StoreSubscriber {
 
                 case let .change(responsibleRoutableIndex, segmentToBeReplaced, newSegment):
                     DispatchQueue.main.async {
-                        self.routables[responsibleRoutableIndex + 1] =
-                            self.routables[responsibleRoutableIndex]
-                                .changeRouteSegment(
-                                    segmentToBeReplaced,
-                                    to: newSegment,
-                                    animated: state.changeRouteAnimated) {
-                                        semaphore.signal()
+                        guard let routableUpdater = self.routables[responsibleRoutableIndex + 1] as? RoutableUpdateHandler else {
+                            self.routables[responsibleRoutableIndex + 1] =
+                                self.routables[responsibleRoutableIndex]
+                                    .changeRouteSegment(
+                                        segmentToBeReplaced,
+                                        to: newSegment,
+                                        animated: state.changeRouteAnimated) {
+                                            semaphore.signal()
+                                        }
+                            return
+                        }
+                      
+                        routableUpdater.updateRouteSegmentParams(newSegment, animated: state.changeRouteAnimated) {
+                            semaphore.signal()
                         }
                     }
 
@@ -132,7 +139,7 @@ open class Router<State: StateType>: StoreSubscriber {
             // Keeps track which element of the routes we are working on
             // We start at the end of the old route
             var routeBuildingIndex = oldRoute.count - 1
-
+      
             // Pop all route segments of the old route that are no longer in the new route
             // Stop one element ahead of the commonSubroute. When we are one element ahead of the
             // commmon subroute we have three options:

@@ -25,11 +25,20 @@ public protocol Routable {
         to: RouteSegment,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable
+}
 
+// A Routable entity that can handle a scenario wherein the routing segment does not change,
+// but its params do.
+public protocol RoutableUpdateHandler: Routable {
+  
+  func updateRouteSegmentParams(
+    _ newSegment: RouteSegment,
+    animated: Bool,
+    completionHandler: @escaping RoutingCompletionHandler)
 }
 
 extension Routable {
-
+  
     public func pushRouteSegment(
         _ routeSegment: RouteSegment,
         animated: Bool,

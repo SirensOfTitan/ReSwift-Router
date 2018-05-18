@@ -8,8 +8,20 @@
 
 import ReSwift
 
+public enum RoutePresentationStyle {
+  case normal
+  case modal
+}
+
 public protocol RouteSegment {
+  var presentationStyle: RoutePresentationStyle { get }
   func isEqual(to segment: RouteSegment?) -> Bool
+}
+
+extension RouteSegment {
+  public var presentationStyle: RoutePresentationStyle {
+    return .normal
+  }
 }
 
 extension RouteSegment where Self: Equatable {
