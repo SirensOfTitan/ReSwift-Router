@@ -35,21 +35,21 @@ extension RouteSegment where Self: Equatable {
 
 public struct IDRouteSegment<T: Equatable>: RouteSegment, Equatable {
   let identifier: T
-  
+
   public init(_ identifier: T) {
-      self.identifier = identifier
+    self.identifier = identifier
   }
 }
 
 public typealias Route = [RouteSegment]
 
 public struct NavigationState {
-    public init() {}
+  public init() {}
 
-    public var route: Route = []
-    var changeRouteAnimated: Bool = true
+  public var route: Route = []
+  var changeRouteAnimated: Bool = true
 }
 
 public protocol HasNavigationState {
-    var navigationState: NavigationState { get set }
+  var navigationState: NavigationState { get set }
 }
