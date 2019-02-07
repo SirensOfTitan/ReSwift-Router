@@ -27,6 +27,8 @@ public struct NavigationReducer {
       return popRoute(state, popRouteAction: action)
     case let action as ReplaceRouteAction:
       return replaceRoute(state, replaceRouteAction: action)
+    case let action as PopModalAction:
+      return popModalRoute(state, popModalAction: action)
     default:
       break
     }
@@ -72,6 +74,24 @@ public struct NavigationReducer {
     state.route.append(replaceRouteAction.segment)
     state.changeRouteAnimated = replaceRouteAction.animated
 
+    return state
+  }
+
+  static func popModalRoute(_ state: NavigationState, popModalAction: PopModalAction) -> NavigationState {
+    guard !state.route.isEmpty else {
+      return state
+    }
+
+    var state = state
+
+    while let lastRoute = state.route.last {
+      _ = state.route.popLast()
+      if lastRoute.presentationStyle == .modal {
+        break
+      }
+    }
+
+    state.changeRouteAnimated = popModalAction.animated
     return state
   }
 }

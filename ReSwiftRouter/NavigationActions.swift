@@ -45,3 +45,11 @@ public struct PopRouteAction: Action {
     self.animated = animated
   }
 }
+
+public struct PopModalAction: Action {
+  let animated: Bool
+
+  public init(animated: Bool = true) {
+    self.animated = animated
+  }
+}
