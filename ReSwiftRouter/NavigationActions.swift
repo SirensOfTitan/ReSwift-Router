@@ -9,13 +9,15 @@
 import ReSwift
 
 public struct SetRouteAction: Action {
-  let route: Route
-  let animated: Bool
 
-  public init(_ route: Route, animated: Bool = true) {
-    self.route = route
-    self.animated = animated
-  }
+    let route: Route
+    let animated: Bool
+    public static let type = "RE_SWIFT_ROUTER_SET_ROUTE"
+
+    public init (_ route: Route, animated: Bool = true) {
+        self.route = route
+        self.animated = animated
+    }
 }
 
 public struct ReplaceRouteAction: Action {
